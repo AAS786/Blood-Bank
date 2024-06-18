@@ -7,11 +7,6 @@ FROM Donors
 WHERE BloodGRoup='AB-'
 
 
-"firstname";"lastname";"age"
-"Neha";"Agarwal";37
-"Shweta";"Thakur";24
-
-
 --Find the names of donors, their blood group,Age, the names of the doctor and helper, 
 - and the sub-branch name where the blood group is O+.
 
