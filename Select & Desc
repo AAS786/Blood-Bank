@@ -1,0 +1,25 @@
+--------------------------------------
+----Select -----
+--------------------------------------
+
+SELECT * FROM Donors;
+SELECT * FROM MainBranch;
+SELECT * FROM Helpers;
+SELECT * FROM Doctors;
+
+SELECT * FROM SubBranch;
+SELECT * FROM Doctors_SubBranch;
+SELECT * FROM Helpers_Doctors;
+SELECT * FROM Donor_Branch;
+--------------------------------------
+----Desc -----
+--------------------------------------
+
+Desc MainBranch;
+Desc Helpers;
+Desc Doctors;
+
+Desc SubBranch;
+Desc Doctors_SubBranch;
+Desc Helpers_Doctors;
+Desc Donor_Branch;
