@@ -1,15 +1,17 @@
 ----Some Related Quary problems ----------------
-
+--------------------------------------------------------------------
 --Find the FirstNmae,and LastName whose blood group is AB-
+-----------------------------------------------------------------
 
 SELECT FirstName,LastName,Age
 FROM Donors
 WHERE BloodGRoup='AB-'
 
+-------------------------------------------------------------------------------------
 
 --Find the names of donors, their blood group,Age, the names of the doctor and helper, 
-- and the sub-branch name where the blood group is O+.
-
+   and the sub-branch name where the blood group is O+.
+-------------------------------------------------------------------------------------
 SELECT
     d.DonorID,
     d.FirstName AS DonorFirstName,
@@ -38,9 +40,11 @@ JOIN
 WHERE
     d.BloodGroup = 'O+';
 
+-------------------------------------------------------------------------------
+
 --Find all donor names, ages, blood groups, and their 
 -- assigned doctor names along with the branch they are assigned to.
-
+-------------------------------------------------------------------------------
 SELECT
     d.FirstName AS DonorFirstName,
     d.LastName AS DonorLastName,
@@ -60,9 +64,10 @@ JOIN
 JOIN
     Doctors dr ON dsb.DoctorID = dr.DoctorID;
 
+--------------------------------------------------------------------------------------------------------
 
 --Find Doctor FirstName,Specialization,Contactnum and their helpers,and their contactnumber in asc order
-
+---------------------------------------------------------------------------------------------------------------
 SELECT 
     dr.FirstName AS DoctorFirstName,
     dr.Specialization,
@@ -78,58 +83,68 @@ INNER JOIN
 ORDER BY
     dr.FirstName ASC;
 
---Find the total number of donors in each blood group:
+----------------------------------------------------------------------------------
 
+--Find the total number of donors in each blood group:
+-----------------------------------------------------------------------------
 SELECT BloodGroup, COUNT(*) AS TotalDonors
 FROM Donors
 GROUP BY BloodGroup;
 
---Find the average age of donors for each blood group:
+----------------------------------------------------------------------------
 
+--Find the average age of donors for each blood group:
+---------------------------------------------------------------------------
 SELECT BloodGroup, AVG(Age) AS AverageAge
 FROM Donors
 GROUP BY BloodGroup;
 
+------------------------------------------------------------------------
 
 --Find the sub-branches with the highest number of donors:
-
+-----------------------------------------------------------------------
 SELECT sb.BranchName, COUNT(*) AS TotalDonors
 FROM SubBranch sb
 JOIN Donor_Branch db ON sb.SubBranchID = db.SubBranchID
 GROUP BY sb.BranchName
 ORDER BY TotalDonors DESC;
 
+-----------------------------------------------------------------------
 
 --Find 5 max age doner name
-
+--------------------------------------------------------------
 SELECT  * FROM Donors
 ORDER BY DonorID DESC
 	limit 5;
 
+-------------------------------------------------------------------------
 
 --Name and Bloodgroup who has rare blood
-
+-----------------------------------------------------------------------
 SELECT FirstName,LastName,BloodGroup
 FROM Donors
 WHERE BloodGroup NOT IN ('A+', 'B+', 'AB+', 'O+')
 ORDER BY DonorID DESC;
 
+--------------------------------------------------------------------------------
 
 --Retrieve SubBranches with Helper Contact Numbers in Howrah:
-
+---------------------------------------------------------------------
 SELECT SubBranchID, BranchName, Location, HelperContactNumber
 FROM SubBranch;
 
+------------------------------------------------------------------------------
 
 --Update Helper Contact Number for a Specific SubBranch:
-
+---------------------------------------------------------------------------------
 UPDATE SubBranch
 SET HelperContactNumber = '9876543213'
 WHERE SubBranchID = 3;
 
+-----------------------------------------------------------------------------
 
 --Retrieve the details of doctors along with their associated sub-branches.
-
+---------------------------------------------------------------------------
 SELECT 
     d.DoctorID, 
     d.FirstName AS DoctorFirstName, 
@@ -144,9 +159,10 @@ INNER JOIN
 INNER JOIN 
     SubBranch sb ON ds.SubBranchID = sb.SubBranchID;
 
+------------------------------------------------------------------------------
 
 -- List all donors along with their associated sub-branch locations
-
+------------------------------------------------------------------------------
 SELECT 
     d.FirstName AS DonorFirstName, 
     d.LastName AS DonorLastName, 
@@ -159,9 +175,10 @@ INNER JOIN
 INNER JOIN 
     SubBranch sb ON db.SubBranchID = sb.SubBranchID;
 
+---------------------------------------------------------------
 
 -- To find donors with a specific name pattern using LIKE:
-
+------------------------------------------------------------------
 SELECT
     DonorID,
     FirstName,
@@ -171,11 +188,12 @@ SELECT
 FROM
     Donors
 WHERE
-    FirstName LIKE 'A%'; -- Finds donors whose first name starts with 'A'
+    FirstName LIKE 'A%'; -- Finds donors whose first name starts with 'A';
 
+------------------------------------------------------------------------------------
 
 -- To find donors within a certain age range using BETWEEN:
-
+-----------------------------------------------------------------------------------
 SELECT
     DonorID,
     FirstName,
@@ -185,11 +203,12 @@ SELECT
 FROM
     Donors
 WHERE
-    Age BETWEEN 25 AND 30; -- Finds donors whose age is between 18 and 30
+    Age BETWEEN 25 AND 30; -- Finds donors whose age is between 18 and 30;
 
+----------------------------------------------------------------------------------
 
 -- To find donors with specific blood groups using IN:
-
+---------------------------------------------------------------------------------
 SELECT
     DonorID,
     FirstName,
@@ -201,9 +220,10 @@ FROM
 WHERE
     BloodGroup IN ('O+', 'A+', 'B+'); -- Finds donors with blood groups O+, A+, or B+
 
+---------------------------------------------------------------------------------------------
 
 -- To find doctors with a specific specialization using LIKE:
-
+---------------------------------------------------------------------------------------------
 SELECT
     DoctorID,
     FirstName,
@@ -214,3 +234,5 @@ FROM
     Doctors
 WHERE
     Specialization LIKE '%Endocrinologist%'; -- Finds doctors with 'Endocrinologist' in their specialization
+
+---------------------------------------------------------------------------------------------------------------
