@@ -1,0 +1,91 @@
+Create Database BloodBank;
+Use BloodBank;
+
+CREATE TABLE Donors (
+    DonorID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    BloodGroup VARCHAR(5),
+    Age INT,
+    Gender VARCHAR(10),
+    ContactNumber VARCHAR(15),
+    Email VARCHAR(100),
+    Address VARCHAR(255)
+);
+
+
+CREATE TABLE MainBranch (
+    MainBranchID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Location VARCHAR(255),
+    ContactNumber VARCHAR(15)
+);
+
+
+CREATE TABLE Helpers (
+    HelperID INT PRIMARY KEY,
+    MainBranchID INT,
+    FirstName VARCHAR(10),
+	LastName VARCHAR(10),
+    Role VARCHAR(100),
+    ContactNumber VARCHAR(15),
+    FOREIGN KEY (MainBranchID) REFERENCES MainBranch(MainBranchID)
+);
+
+
+CREATE TABLE Doctors (
+    DoctorID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Specialization VARCHAR(100),
+    ContactNumber VARCHAR(15)
+);
+
+
+CREATE TABLE SubBranch (
+    SubBranchID INT PRIMARY KEY,
+    BranchName VARCHAR(100),
+    Location VARCHAR(255)
+);
+
+-- Add new column HelperContactNumber to Doctors_SubBranch table
+ALTER TABLE SubBranch
+ADD HelperContactNumber VARCHAR(15);
+UPDATE SubBranch
+SET HelperContactNumber = '9876543210'
+WHERE SubBranchID = 1;
+
+UPDATE SubBranch
+SET HelperContactNumber = '9876543211' 
+WHERE SubBranchID = 2;
+
+UPDATE SubBranch
+SET HelperContactNumber = '9876543212' 
+WHERE SubBranchID = 3;
+
+
+-- Creating the table for doctors assigned to sub-branches
+CREATE TABLE Doctors_SubBranch (
+    DoctorID INT,
+    SubBranchID INT,
+    PRIMARY KEY (DoctorID, SubBranchID),
+    FOREIGN KEY (DoctorID) REFERENCES Doctors(DoctorID),
+    FOREIGN KEY (SubBranchID) REFERENCES SubBranch(SubBranchID)
+);
+
+
+CREATE TABLE Helpers_Doctors (
+    HelperID INT PRIMARY KEY,
+    DoctorID INT,
+    FOREIGN KEY (DoctorID) REFERENCES Doctors(DoctorID)
+);
+
+
+-- Creating the Donor_Branch table
+CREATE TABLE Donor_Branch (
+    DonorID INT,
+    SubBranchID INT,
+    PRIMARY KEY (DonorID, SubBranchID),
+    FOREIGN KEY (DonorID) REFERENCES Donors(DonorID),
+    FOREIGN KEY (SubBranchID) REFERENCES SubBranch(SubBranchID)
+);
